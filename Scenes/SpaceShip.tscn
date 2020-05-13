@@ -1,11 +1,11 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Sprites/Ship_move_sprite_sheet.png" type="Texture" id=1]
+[ext_resource path="res://Scripts/SpaceShip.gd" type="Script" id=2]
 
 [sub_resource type="Animation" id=1]
-resource_name = "idle"
+resource_name = "Idle"
 length = 0.1
-loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -20,7 +20,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=2]
-resource_name = "speedUp"
+resource_name = "SpeedUp"
 length = 1.7
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -29,13 +29,85 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.5, 0.8, 1 ),
+"times": PoolRealArray( 0, 0.2, 0.4, 0.7, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 8, 2, 7, 1, 0 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "SpeedStable"
+length = 1.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 4, 4, 9 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "SpeedUp"
+length = 1.7
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 0, 1, 7, 2, 8 ]
 }
 
+[sub_resource type="AnimationNodeAnimation" id=7]
+animation = "Idle"
+
+[sub_resource type="AnimationNodeAnimation" id=8]
+animation = "SpeedDown"
+
+[sub_resource type="AnimationNodeAnimation" id=9]
+animation = "SpeedStable"
+
+[sub_resource type="AnimationNodeAnimation" id=10]
+animation = "SpeedUp"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=11]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=12]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=13]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=14]
+
+[sub_resource type="AnimationNodeStateMachine" id=5]
+states/Idle/node = SubResource( 7 )
+states/Idle/position = Vector2( 317.5, 261.438 )
+states/SpeedDown/node = SubResource( 8 )
+states/SpeedDown/position = Vector2( 507, 399.062 )
+states/SpeedStable/node = SubResource( 9 )
+states/SpeedStable/position = Vector2( 683.5, 262.875 )
+states/SpeedUp/node = SubResource( 10 )
+states/SpeedUp/position = Vector2( 505, 131.25 )
+transitions = [ "Idle", "SpeedUp", SubResource( 11 ), "SpeedUp", "SpeedStable", SubResource( 12 ), "SpeedDown", "Idle", SubResource( 13 ), "SpeedStable", "SpeedDown", SubResource( 14 ) ]
+graph_offset = Vector2( 0, 147.437 )
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=6]
+
 [node name="SpaceShip" type="Area2D"]
+position = Vector2( 0.125, 0 )
+script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -44,8 +116,20 @@ __meta__ = {
 texture = ExtResource( 1 )
 vframes = 2
 hframes = 6
-frame = 8
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/idle = SubResource( 1 )
-anims/speedUp = SubResource( 2 )
+anims/Idle = SubResource( 1 )
+anims/SpeedDown = SubResource( 2 )
+anims/SpeedStable = SubResource( 3 )
+anims/SpeedUp = SubResource( 4 )
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( 5 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/playback = SubResource( 6 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2( 0.6875, -4.875 )
+scale = Vector2( 1.93359, 1.57813 )
+polygon = PoolVector2Array( -0.368497, -14.131, 0.665846, -11.9131, 0.989079, -7.63591, 1.95878, -5.18046, 2.4113, -2.32898, 2.47595, 2.58191, 3.70423, 4.32449, 5.77292, 4.56211, 6.74261, 2.74033, 7.32443, 2.74033, 7.64766, 5.90865, 11.979, 7.4928, 13.5951, 12.1661, 12.6254, 12.7205, 9.58706, 10.5819, 8.22948, 10.978, 7.90625, 12.8789, 5.57898, 12.7997, 5.51433, 11.1364, 2.54059, 11.1364, 2.47595, 13.0374, 1.82948, 14.4631, -2.04931, 14.4631, -2.95436, 13.4334, -3.21294, 11.5324, -6.18668, 11.5324, -6.12203, 13.3542, -9.03112, 13.3542, -9.03112, 10.978, -11.423, 11.0572, -13.1685, 13.1958, -14.3321, 12.0077, -13.1039, 7.57201, -8.5786, 5.75023, -7.99678, 2.50271, -7.35032, 2.58191, -6.83314, 5.11657, -3.40688, 3.21558, -3.21294, -2.80422, -1.85537, -7.08145, -1.85537, -11.7547 )
