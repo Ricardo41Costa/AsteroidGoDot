@@ -24,6 +24,10 @@ config/icon="res://icon.png"
 window/size/width=720
 window/size/height=480
 
+[logging]
+
+file_logging/enable_file_logging=true
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"
