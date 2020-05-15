@@ -1,6 +1,8 @@
 extends KinematicBody2D
 
 export var speed = 250 #player speed
+export (PackedScene) var bullet
+
 var animationState : AnimationNodeStateMachinePlayback #callback to the animation state machine
 var screen_size  # Size of the game window.
 

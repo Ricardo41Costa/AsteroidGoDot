@@ -1,7 +1,8 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Sprites/Ship_move_sprite_sheet.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/SpaceShip.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/bullet.tscn" type="PackedScene" id=3]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Idle"
@@ -89,12 +90,12 @@ switch_mode = 2
 [sub_resource type="AnimationNodeStateMachineTransition" id=11]
 switch_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=15]
+[sub_resource type="AnimationNodeStateMachineTransition" id=12]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=16]
+[sub_resource type="AnimationNodeStateMachineTransition" id=13]
 switch_mode = 2
 
-[sub_resource type="AnimationNodeStateMachine" id=13]
+[sub_resource type="AnimationNodeStateMachine" id=14]
 states/Idle/node = SubResource( 5 )
 states/Idle/position = Vector2( 317.5, 261.438 )
 states/SpeedDown/node = SubResource( 6 )
@@ -103,10 +104,10 @@ states/SpeedStable/node = SubResource( 7 )
 states/SpeedStable/position = Vector2( 683.5, 262.875 )
 states/SpeedUp/node = SubResource( 8 )
 states/SpeedUp/position = Vector2( 505, 131.25 )
-transitions = [ "Idle", "SpeedUp", SubResource( 9 ), "SpeedUp", "SpeedStable", SubResource( 10 ), "SpeedDown", "Idle", SubResource( 11 ), "SpeedStable", "SpeedDown", SubResource( 15 ), "SpeedDown", "SpeedUp", SubResource( 16 ) ]
+transitions = [ "Idle", "SpeedUp", SubResource( 9 ), "SpeedUp", "SpeedStable", SubResource( 10 ), "SpeedDown", "Idle", SubResource( 11 ), "SpeedStable", "SpeedDown", SubResource( 12 ), "SpeedDown", "SpeedUp", SubResource( 13 ) ]
 graph_offset = Vector2( 0, 166.339 )
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=14]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=15]
 
 [node name="SpaceShip" type="KinematicBody2D"]
 position = Vector2( 0.125, 0 )
@@ -124,12 +125,14 @@ anims/SpeedStable = SubResource( 3 )
 anims/SpeedUp = SubResource( 4 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 13 )
+tree_root = SubResource( 14 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
-parameters/playback = SubResource( 14 )
+parameters/playback = SubResource( 15 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 position = Vector2( 0.6875, -4.875 )
 scale = Vector2( 1.93359, 1.57813 )
 polygon = PoolVector2Array( -0.368497, -14.131, 0.665846, -11.9131, 0.989079, -7.63591, 1.95878, -5.18046, 2.4113, -2.32898, 2.47595, 2.58191, 3.70423, 4.32449, 5.77292, 4.56211, 6.74261, 2.74033, 7.32443, 2.74033, 7.64766, 5.90865, 11.979, 7.4928, 13.5951, 12.1661, 12.6254, 12.7205, 9.58706, 10.5819, 8.22948, 10.978, 7.90625, 12.8789, 5.57898, 12.7997, 5.51433, 11.1364, 2.54059, 11.1364, 2.47595, 13.0374, 1.82948, 14.4631, -2.04931, 14.4631, -2.95436, 13.4334, -3.21294, 11.5324, -6.18668, 11.5324, -6.12203, 13.3542, -9.03112, 13.3542, -9.03112, 10.978, -11.423, 11.0572, -13.1685, 13.1958, -14.3321, 12.0077, -13.1039, 7.57201, -8.5786, 5.75023, -7.99678, 2.50271, -7.35032, 2.58191, -6.83314, 5.11657, -3.40688, 3.21558, -3.21294, -2.80422, -1.85537, -7.08145, -1.85537, -11.7547 )
+
+[node name="bullet" parent="." instance=ExtResource( 3 )]
