@@ -13,4 +13,3 @@ func _ready():
 
 func _on_Visibility_screen_exited():
 	queue_free()
-	print("OUTSIDE OF SCREEN BYE BYE BITCH")

@@ -77,3 +77,6 @@ func BorderController():
 	
 	if position.x > (screenSize.x + 10):
 		position = Vector2(0, position.y)
+
+func Die():
+	queue_free()
