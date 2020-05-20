@@ -4,38 +4,50 @@ var speed = 100
 var rotationSpeed = 45.0
 var screenSize
 
-const borderOffset = 20
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
-	randomize()
-	
 	screenSize = get_viewport_rect().size
-	#position = Vector2(screenSize.x / 2, screenSize.y / 2)
 	
-	var initialRotation = rand_range(1, 360)
-	rotate(initialRotation)
+	#var initialRotation = rand_range(1, 360)
+	#rotate(initialRotation)
 
 func _process(delta):
 	
+	SceneMove(delta)
+	BorderPositionReset()
+
+func SceneMove(delta):
+	
 	rotation_degrees += rotationSpeed * delta
-	
 	position.x += speed * delta
-	
-	BorderController()
 
 # To controll the limit of the screen by changing the player position
-func BorderController():
+func BorderPositionReset():
 	
-	if position.y < -borderOffset:
+	var borderOffsetMax = 20
+	var borderOffsetMin = 0
+	
+	if position.y < -borderOffsetMax:
 		position = Vector2(position.x, screenSize.y)
 	
-	if position.y > (screenSize.y + 0):
-		position = Vector2(position.x, 0)
+	if position.y > (screenSize.y + borderOffsetMin):
+		position = Vector2(position.x, borderOffsetMin)
 	
-	if position.x < -borderOffset:
+	if position.x < -borderOffsetMax:
 		position = Vector2(screenSize.x, position.y)
 	
-	if position.x > (screenSize.x + borderOffset):
-		position = Vector2(0, position.y)
+	if position.x > (screenSize.x + borderOffsetMax):
+		position = Vector2(borderOffsetMin, position.y)
+
+func _on_Comet_body_entered(body):
+	
+	print(body.name)
+	print(body.filename)
+	
+	if body.filename.find("Bullet") != -1:
+		
+		queue_free()
+	elif body.filename.find("SpaceShip") != -1:
+		
+		body.Die()

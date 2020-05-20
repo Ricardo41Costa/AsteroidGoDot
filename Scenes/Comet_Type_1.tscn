@@ -5,7 +5,6 @@
 
 [node name="Comet" type="Area2D"]
 position = Vector2( 0.125, 0.0625 )
-collision_mask = 0
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -13,5 +12,4 @@ texture = ExtResource( 1 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PoolVector2Array( 23, -23.5, 23, -21.6, 30, -10.6, 30, 1.6, 18.1, 19, 15.2, 19, -9, 21.2, -9, 19, -20, 11, -20, 8.3, -22.8, 0, -19.9, 0, -16, -4.7, -20.9, -18, -17.9, -18, -11.9, -25, -6.8, -25, 3.4, -22.4, 9, -25.2, 9, -27.7 )
-[connection signal="area_entered" from="." to="." method="_on_Comet_area_entered"]
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="." to="." method="_on_Comet_body_entered"]
