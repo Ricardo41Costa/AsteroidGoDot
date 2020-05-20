@@ -66,17 +66,20 @@ func MovementController(delta):
 # To controll the limit of the screen by changing the player position
 func BorderController():
 	
-	if position.y < -10:
+	var borderOffsetMax = 10
+	var borderOffsetMin = 0
+	
+	if position.y < -borderOffsetMax:
 		position = Vector2(position.x, screenSize.y)
 	
-	if position.y > (screenSize.y + 10):
-		position = Vector2(position.x, 0)
+	if position.y > (screenSize.y + borderOffsetMax):
+		position = Vector2(position.x, borderOffsetMin)
 	
-	if position.x < -10:
+	if position.x < -borderOffsetMax:
 		position = Vector2(screenSize.x, position.y)
 	
-	if position.x > (screenSize.x + 10):
-		position = Vector2(0, position.y)
+	if position.x > (screenSize.x + borderOffsetMax):
+		position = Vector2(borderOffsetMin, position.y)
 
 func Die():
 	queue_free()

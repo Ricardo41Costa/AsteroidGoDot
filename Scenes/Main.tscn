@@ -6,10 +6,8 @@
 
 [node name="Main" type="Node"]
 script = ExtResource( 2 )
+cometScene = ExtResource( 3 )
 
 [node name="SpaceShip" parent="." instance=ExtResource( 1 )]
 position = Vector2( -0.875, 0 )
 parent_path = NodePath("..")
-
-[node name="Comet" parent="." instance=ExtResource( 3 )]
-position = Vector2( 565.804, 151.688 )
