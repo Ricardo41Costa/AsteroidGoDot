@@ -24,10 +24,20 @@ config/icon="res://icon.png"
 window/size/width=720
 window/size/height=480
 
+[layer_names]
+
+2d_render/layer_1="Comet"
+2d_physics/layer_1="Comet"
+2d_render/layer_2="SpaceShip"
+2d_physics/layer_2="SpaceShip"
+2d_render/layer_3="Bullet"
+2d_physics/layer_3="Bullet"
+
 [logging]
 
 file_logging/enable_file_logging=true
 
 [rendering]
 
+environment/default_clear_color=Color( 0.12549, 0.117647, 0.117647, 1 )
 environment/default_environment="res://default_env.tres"

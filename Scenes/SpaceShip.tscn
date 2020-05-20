@@ -111,6 +111,7 @@ graph_offset = Vector2( 0, 166.339 )
 
 [node name="SpaceShip" type="KinematicBody2D"]
 position = Vector2( 0.125, 0 )
+collision_layer = 2
 script = ExtResource( 2 )
 bulletScene = ExtResource( 3 )
 
