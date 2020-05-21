@@ -8,9 +8,6 @@ var screenSize
 func _ready():
 	
 	screenSize = get_viewport_rect().size
-	
-	#var initialRotation = rand_range(1, 360)
-	#rotate(initialRotation)
 
 func _process(delta):
 	
