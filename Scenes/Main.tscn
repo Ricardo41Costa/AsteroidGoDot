@@ -1,13 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scenes/SpaceShip.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scripts/Main.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/Comet_Type_1.tscn" type="PackedScene" id=3]
-
-[sub_resource type="Curve2D" id=1]
-_data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 0.0915337, 0.1276, 0, 0, 0, 0, 719.5, 3.5, 0, 0, 0, 0, 719.9, 482.6, 0, 0, 0, 0, 0.500458, 484.9, 0, 0, 0, 0, 0.0915337, 0.1276 )
-}
 
 [node name="Main" type="Node"]
 script = ExtResource( 2 )
@@ -16,10 +11,3 @@ cometScene = ExtResource( 3 )
 [node name="SpaceShip" parent="." instance=ExtResource( 1 )]
 position = Vector2( -0.841244, 0.0337563 )
 parent_path = NodePath("..")
-
-[node name="CometPath" type="Path2D" parent="."]
-curve = SubResource( 1 )
-
-[node name="CometPathLocation" type="PathFollow2D" parent="CometPath"]
-position = Vector2( 0.0915337, 0.1276 )
-rotation = 0.00468771

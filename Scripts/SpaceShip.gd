@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-export var speed = 250 #player speed
+export var speed = 200 #player speed
 export (PackedScene) var bulletScene
 export(NodePath) var parent_path
 
@@ -81,5 +81,5 @@ func BorderController():
 	if position.x > (screenSize.x + borderOffsetMax):
 		position = Vector2(borderOffsetMin, position.y)
 
-func Die():
+func _die():
 	queue_free()

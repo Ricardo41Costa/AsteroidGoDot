@@ -1,13 +1,21 @@
 extends Area2D
 
-var speed = 100
-var rotationSpeed = 45.0
+export var speed = 100
+export var rotationSpeed = 45.0
+export var nextSpawnNumber = 2
+export (PackedScene) var nextComet
+
 var screenSize
+var randomDiretionX
+var randomDiretionY
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
 	screenSize = get_viewport_rect().size
+	
+	randomDiretionX = rand_range(-1, 1)
+	randomDiretionY = rand_range(-1, 1)
 
 func _process(delta):
 	
@@ -17,7 +25,9 @@ func _process(delta):
 func SceneMove(delta):
 	
 	rotation_degrees += rotationSpeed * delta
-	position.x += speed * delta
+	
+	position.x += randomDiretionX * speed * delta
+	position.y += randomDiretionY * speed * delta
 
 # To controll the limit of the screen by changing the player position
 func BorderPositionReset():
@@ -37,6 +47,20 @@ func BorderPositionReset():
 	if position.x > (screenSize.x + borderOffsetMax):
 		position = Vector2(borderOffsetMin, position.y)
 
+func _die():
+	queue_free()
+
+func _spawn_Next_Wave_Comet():
+	
+	for x in nextSpawnNumber:
+		
+		var comet = nextComet.instance()
+		get_tree().get_root().get_node("Main").add_child(comet)
+		
+		comet.global_position = position
+	
+	_die()
+
 func _on_Comet_body_entered(body):
 	
 	print(body.name)
@@ -44,7 +68,8 @@ func _on_Comet_body_entered(body):
 	
 	if body.filename.find("Bullet") != -1:
 		
-		queue_free()
+		_spawn_Next_Wave_Comet()
+		body._die()
 	elif body.filename.find("SpaceShip") != -1:
 		
-		body.Die()
+		body._die()
