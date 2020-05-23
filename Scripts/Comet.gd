@@ -8,11 +8,14 @@ export (PackedScene) var nextComet
 var screenSize
 var randomDiretionX
 var randomDiretionY
+var isDying
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
 	screenSize = get_viewport_rect().size
+	
+	isDying = false
 	
 	randomDiretionX = rand_range(-1, 1)
 	randomDiretionY = rand_range(-1, 1)
@@ -66,10 +69,11 @@ func _on_Comet_body_entered(body):
 	print(body.name)
 	print(body.filename)
 	
-	if body.filename.find("Bullet") != -1:
-		
-		_spawn_Next_Wave_Comet()
-		body._die()
-	elif body.filename.find("SpaceShip") != -1:
-		
-		body._die()
+	if !isDying:
+		if body.filename.find("Bullet") != -1:
+			isDying = true
+			_spawn_Next_Wave_Comet()
+			body._die()
+			
+		elif body.filename.find("SpaceShip") != -1:
+			body._hit()

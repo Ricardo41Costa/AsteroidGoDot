@@ -4,6 +4,7 @@ export var speed = 200 #player speed
 export (PackedScene) var bulletScene
 export(NodePath) var parent_path
 
+var extraLives = 3
 var timeToWait = 0
 var animationState : AnimationNodeStateMachinePlayback #callback to the animation state machine
 var screenSize  # Size of the game window.
@@ -80,6 +81,14 @@ func BorderController():
 	
 	if position.x > (screenSize.x + borderOffsetMax):
 		position = Vector2(borderOffsetMin, position.y)
+
+func _hit():
+	
+	if extraLives > 0:
+		extraLives -= 1
+		emit_signal("hit_signal")
+	else:
+		_die()
 
 func _die():
 	queue_free()
