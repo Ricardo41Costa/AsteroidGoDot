@@ -76,4 +76,6 @@ func _on_Comet_body_entered(body):
 			body._die()
 			
 		elif body.filename.find("SpaceShip") != -1:
-			body._hit()
+			
+			if body.isVulnerable:
+				body._hit()
