@@ -9,9 +9,12 @@ var screenSize
 var randomDiretionX
 var randomDiretionY
 var isDying
+var mainScene
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
+	mainScene = $"/root/Main"
 	
 	screenSize = get_viewport_rect().size
 	
@@ -20,7 +23,7 @@ func _ready():
 	randomDiretionX = rand_range(-1, 1)
 	randomDiretionY = rand_range(-1, 1)
 
-func _process(delta):
+func _physics_process(delta):
 	
 	SceneMove(delta)
 	BorderPositionReset()
@@ -55,19 +58,16 @@ func _die():
 
 func _spawn_Next_Wave_Comet():
 	
+	_die()
+	
 	for x in nextSpawnNumber:
 		
 		var comet = nextComet.instance()
-		get_tree().get_root().get_node("Main").add_child(comet)
+		mainScene.add_child(comet)
 		
 		comet.global_position = position
-	
-	_die()
 
 func _on_Comet_body_entered(body):
-	
-	print(body.name)
-	print(body.filename)
 	
 	if !isDying:
 		if body.filename.find("Bullet") != -1:

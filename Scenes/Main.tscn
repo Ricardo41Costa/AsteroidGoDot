@@ -15,4 +15,4 @@ parent_path = NodePath("..")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Ui" parent="CanvasLayer" instance=ExtResource( 4 )]
+[node name="UI" parent="CanvasLayer" instance=ExtResource( 4 )]

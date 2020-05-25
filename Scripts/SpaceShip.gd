@@ -5,15 +5,17 @@ export (PackedScene) var bulletScene
 export(NodePath) var parent_path
 
 var timerVulnerable
-var isVulnerable
+var isVulnerable	
 var extraLives = 3
 var timeToWaitShot = 0
 var timeToWaitVulnerable = 0
 var animationState : AnimationNodeStateMachinePlayback #callback to the animation state machine
 var screenSize  # Size of the game window.
+var uiScene
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	uiScene = $"/root/Main/CanvasLayer/UI"
 	animationState = $AnimationTree.get("parameters/playback")
 	animationState.start("Idle")
 	screenSize = get_viewport_rect().size
@@ -101,25 +103,27 @@ func VulnerableController():
 				visible = false
 			else:
 				visible = true
+	else:
+		visible = true
 
 func startVulnerableTimer():
 	
 	timerVulnerable = Timer.new()
 	timerVulnerable.set_one_shot(false)
-	timerVulnerable.set_wait_time(1)
+	timerVulnerable.set_wait_time(1.5)
 	timerVulnerable.connect("timeout",self,"_timer_callback") 
 	add_child(timerVulnerable)	
 	timerVulnerable.start()
-	
-	print("timer started")
 
 func _hit():
+	
+	print("hit")
 	
 	if extraLives > 0:
 		extraLives -= 1
 		isVulnerable = false
 		startVulnerableTimer()
-		emit_signal("hit_signal")
+		uiScene._set_Reduce_Live_Counter(extraLives)
 	else:
 		_die()
 
@@ -129,5 +133,3 @@ func _die():
 func _timer_callback():
 	isVulnerable = true
 	timerVulnerable.stop()
-	
-	print("timer ended")
