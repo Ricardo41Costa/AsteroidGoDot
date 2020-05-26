@@ -11,6 +11,10 @@ func _ready():
 	screenSize = get_viewport().size
 	SpawnComet()
 
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
 func SpawnComet():
 	
 	var numberComets = 2
@@ -24,7 +28,3 @@ func SpawnComet():
 		add_child(comet)
 		
 		comet.global_position = randPosition
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass

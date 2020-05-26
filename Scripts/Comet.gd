@@ -63,7 +63,7 @@ func _spawn_Next_Wave_Comet():
 	for x in nextSpawnNumber:
 		
 		var comet = nextComet.instance()
-		mainScene.add_child(comet)
+		mainScene.call_deferred("add_child", comet)
 		
 		comet.global_position = position
 

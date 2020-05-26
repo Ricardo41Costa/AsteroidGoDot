@@ -29,6 +29,7 @@ func _physics_process(delta):
 	BorderController()
 	CannonController()
 	VulnerableController()
+	VulnerableController()
 
 func CannonController():
 	
