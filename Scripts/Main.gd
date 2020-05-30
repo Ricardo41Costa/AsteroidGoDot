@@ -21,10 +21,12 @@ func SpawnComet():
 	
 	for x in numberComets:
 		
-		var randPosition = Vector2(rand_range(0, screenSize.x), rand_range(0, screenSize.y))
-		var randRotation = rand_range(1, 360)
+		#var randPosition = Vector2(rand_range(0, screenSize.x), rand_range(0, screenSize.y))
+		#var randRotation = rand_range(1, 360)
+		
+		$CometPath/CometSpawnLocation.offset = randi()
 		
 		var comet = cometScene.instance()
 		add_child(comet)
 		
-		comet.global_position = randPosition
+		comet.position = $CometPath/CometSpawnLocation.position
