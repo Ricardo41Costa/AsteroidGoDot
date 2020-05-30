@@ -19,8 +19,8 @@ position = Vector2( 0.5, 0.5 )
 curve = SubResource( 1 )
 
 [node name="CometSpawnLocation" type="PathFollow2D" parent="CometPath"]
-position = Vector2( 51.1, 129.1 )
-rotation = -0.601571
+position = Vector2( -40.8, -38.9002 )
+rotation = 0.00163249
 
 [node name="SpaceShip" parent="." instance=ExtResource( 1 )]
 position = Vector2( 356.159, 230.034 )

@@ -4,6 +4,8 @@ export var speed = 200 #player speed
 export (PackedScene) var bulletScene
 export(NodePath) var parent_path
 
+signal signal_death
+
 var timerVulnerable
 var isVulnerable	
 var extraLives = 3
@@ -15,12 +17,8 @@ var uiScene
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	uiScene = $"/root/Main/CanvasLayer/UI"
-	animationState = $AnimationTree.get("parameters/playback")
-	animationState.start("Idle")
-	screenSize = get_viewport_rect().size
-	position = Vector2(screenSize.x / 2, screenSize.y / 2)
-	isVulnerable = true
+	
+	StartSpaceShip()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
@@ -30,6 +28,20 @@ func _physics_process(delta):
 	CannonController()
 	VulnerableController()
 	VulnerableController()
+
+func StartSpaceShip():
+	
+	var uiScenePath = $"/root/Main/CanvasLayer/UI"
+	var mainScenePath = $"/root/Main"
+	var animationPath = $AnimationTree.get("parameters/playback")
+	
+	uiScene = uiScenePath
+	animationState = animationPath
+	animationState.start("Idle")
+	screenSize = get_viewport_rect().size
+	position = Vector2(screenSize.x / 2, screenSize.y / 2)
+	isVulnerable = true
+	mainScenePath.connect("signal_death", self, "PlayerDeath")
 
 func CannonController():
 	
@@ -130,6 +142,7 @@ func _hit():
 
 func _die():
 	queue_free()
+	emit_signal("signal_death")
 
 func _timer_callback():
 	isVulnerable = true

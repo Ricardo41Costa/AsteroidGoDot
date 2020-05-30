@@ -4,7 +4,9 @@
 [ext_resource path="res://Scripts/Comet.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/Comet_Type_3.tscn" type="PackedScene" id=3]
 
-[node name="Comet" type="Area2D"]
+[node name="Comet" type="Area2D" groups=[
+"Comet",
+]]
 script = ExtResource( 2 )
 speed = 125
 rotationSpeed = 55.0

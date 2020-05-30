@@ -3,7 +3,9 @@
 [ext_resource path="res://Sprites/comet_4.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Comet.gd" type="Script" id=2]
 
-[node name="Comet" type="Area2D"]
+[node name="Comet" type="Area2D" groups=[
+"Comet",
+]]
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]

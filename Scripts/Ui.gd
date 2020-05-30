@@ -15,7 +15,7 @@ func _set_Level_Label_Text(level):
 	
 	var levelLabel = $LevelLabel
 	
-	levelLabel.text = "Level " + level
+	levelLabel.text = "Level " + String(level)
 
 func _set_Reduce_Live_Counter(currentLives):
 	

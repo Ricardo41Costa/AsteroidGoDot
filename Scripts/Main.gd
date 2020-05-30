@@ -9,15 +9,35 @@ var screenSize
 func _ready():
 	randomize()
 	screenSize = get_viewport().size
-	SpawnComet()
+	level = 0
+	NextLevel()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
-
-func SpawnComet():
 	
-	var numberComets = 2
+	checkNumberOfComets()
+
+func checkNumberOfComets():
+	
+	var cometCount = get_tree().get_nodes_in_group("Comet").size();
+	
+	print("cometCount", cometCount)
+	
+	if (cometCount == 0):
+		
+		NextLevel()
+
+func NextLevel():
+	
+	level += 1
+	SpawnComet(level)
+	$CanvasLayer/UI._set_Level_Label_Text(level)
+
+func PlayerDeath():
+	
+	get_tree().change_scene("res://Scenes/Main_Menu.tscn")
+
+func SpawnComet(numberComets):
 	
 	for x in numberComets:
 		
