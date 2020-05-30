@@ -4,7 +4,7 @@ export var speed = 200 #player speed
 export (PackedScene) var bulletScene
 export(NodePath) var parent_path
 
-signal signal_death
+var mainScenePath
 
 var timerVulnerable
 var isVulnerable	
@@ -32,8 +32,8 @@ func _physics_process(delta):
 func StartSpaceShip():
 	
 	var uiScenePath = $"/root/Main/CanvasLayer/UI"
-	var mainScenePath = $"/root/Main"
 	var animationPath = $AnimationTree.get("parameters/playback")
+	mainScenePath = $"/root/Main"
 	
 	uiScene = uiScenePath
 	animationState = animationPath
@@ -41,7 +41,6 @@ func StartSpaceShip():
 	screenSize = get_viewport_rect().size
 	position = Vector2(screenSize.x / 2, screenSize.y / 2)
 	isVulnerable = true
-	mainScenePath.connect("signal_death", self, "PlayerDeath")
 
 func CannonController():
 	
@@ -142,7 +141,7 @@ func _hit():
 
 func _die():
 	queue_free()
-	emit_signal("signal_death")
+	mainScenePath.PlayerDeath()
 
 func _timer_callback():
 	isVulnerable = true

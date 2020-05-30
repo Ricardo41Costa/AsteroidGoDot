@@ -21,16 +21,22 @@ func checkNumberOfComets():
 	
 	var cometCount = get_tree().get_nodes_in_group("Comet").size();
 	
-	print("cometCount", cometCount)
-	
 	if (cometCount == 0):
 		
 		NextLevel()
 
 func NextLevel():
 	
+	var numberComets = 0
+	
 	level += 1
-	SpawnComet(level)
+	
+	if level < 5:
+		numberComets = level
+	else:
+		numberComets = 5
+	
+	SpawnComet(numberComets)
 	$CanvasLayer/UI._set_Level_Label_Text(level)
 
 func PlayerDeath():
@@ -40,9 +46,6 @@ func PlayerDeath():
 func SpawnComet(numberComets):
 	
 	for x in numberComets:
-		
-		#var randPosition = Vector2(rand_range(0, screenSize.x), rand_range(0, screenSize.y))
-		#var randRotation = rand_range(1, 360)
 		
 		$CometPath/CometSpawnLocation.offset = randi()
 		
