@@ -8,7 +8,7 @@
 "Comet",
 ]]
 script = ExtResource( 2 )
-speed = 125
+speed = 135
 rotationSpeed = 55.0
 nextSpawnNumber = 3
 nextComet = ExtResource( 3 )

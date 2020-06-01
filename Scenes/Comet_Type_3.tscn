@@ -8,7 +8,7 @@
 ]]
 scale = Vector2( 0.6, 0.6 )
 script = ExtResource( 2 )
-speed = 150
+speed = 155
 rotationSpeed = 65.0
 nextSpawnNumber = 0
 
