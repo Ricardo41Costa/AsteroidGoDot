@@ -7,6 +7,7 @@
 [node name="Comet" type="Area2D" groups=[
 "Comet",
 ]]
+pause_mode = 1
 script = ExtResource( 2 )
 speed = 135
 rotationSpeed = 55.0

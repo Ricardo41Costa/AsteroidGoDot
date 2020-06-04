@@ -24,12 +24,23 @@ func _process(delta):
 
 func PauseController():
 	
-	if Input.is_action_pressed("ui_pause"):
+	if Input.is_action_just_pressed("ui_pause"):
+		
+		print("paused pressed")
 		
 		if isRunning:
 			isRunning = false
 		else:
 			isRunning = true
+	
+	if !isRunning:
+		$CanvasLayer/UI._turn_pause_texture_visible(true)
+		get_tree().paused = true
+		print("pause true")
+	else:
+		$CanvasLayer/UI._turn_pause_texture_visible(false)
+		get_tree().paused = false
+		print("pause false")
 
 func checkNumberOfComets():
 	

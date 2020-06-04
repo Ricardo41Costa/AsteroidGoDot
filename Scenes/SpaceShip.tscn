@@ -147,6 +147,7 @@ graph_offset = Vector2( -33.9874, 330.363 )
 [sub_resource type="AnimationNodeStateMachinePlayback" id=22]
 
 [node name="SpaceShip" type="KinematicBody2D"]
+pause_mode = 1
 position = Vector2( 0.125, 0 )
 scale = Vector2( 0.8, 0.7 )
 collision_layer = 2

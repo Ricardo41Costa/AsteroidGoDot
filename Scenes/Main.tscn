@@ -11,6 +11,7 @@ _data = {
 }
 
 [node name="Main" type="Node"]
+pause_mode = 2
 script = ExtResource( 2 )
 cometScene = ExtResource( 3 )
 

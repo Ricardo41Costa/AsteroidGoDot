@@ -31,3 +31,7 @@ func _set_Reduce_Live_Counter(currentLives):
 func _turn_next_level_msg_visible(visible):
 	
 	$CenterContainer/MsgLabel.visible = visible
+
+func _turn_pause_texture_visible(visible):
+	
+	$CenterContainer/PauseTexture.visible = visible
