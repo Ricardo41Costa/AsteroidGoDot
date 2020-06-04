@@ -36,8 +36,10 @@ func StartSpaceShip():
 	mainScenePath = $"/root/Main"
 	
 	uiScene = uiScenePath
+	
 	animationState = animationPath
 	animationState.start("Idle")
+	
 	screenSize = get_viewport_rect().size
 	position = Vector2(screenSize.x / 2, screenSize.y / 2)
 	isVulnerable = true
@@ -67,18 +69,24 @@ func MovementController(delta):
 	
 	if Input.is_action_pressed("ui_up"):
 		
-		if animationState.get_current_node() != "SpeedStable":
+		if animationState.is_playing() && animationState.get_current_node() != "SpeedStable":
 			animationState.travel("SpeedStable")
 		
 		velocity = Vector2(0,-1).rotated(rotation) * speed * delta
 		
 		if Input.is_action_pressed("ui_left"):
 			rotation_degrees -= speed * delta
+			
+			if animationState.is_playing() && animationState.get_current_node() != "TurnLeft":
+				animationState.travel("TurnLeft")
 	
 		if Input.is_action_pressed("ui_right"):
 			rotation_degrees += speed * delta
+			
+			if animationState.is_playing() && animationState.get_current_node() != "TurnRight":
+				animationState.travel("TurnRight")
 	else:
-		if animationState.get_current_node() == "SpeedStable":
+		if animationState.is_playing() && animationState.get_current_node() != "Idle" :
 			animationState.travel("Idle")
 	
 	move_and_collide(velocity)
