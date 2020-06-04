@@ -4,6 +4,8 @@ export var speed = 200 #player speed
 export (PackedScene) var bulletScene
 export(NodePath) var parent_path
 
+onready var audioPlayer = get_node("/root/Main/AudioPlayer")
+
 var mainScenePath
 
 var timerVulnerable
@@ -60,6 +62,8 @@ func CannonController():
 		rightBullet.global_position = $RightCannonPosition.global_position
 		rightBullet.rotation = rotation
 		get_node(parent_path).add_child(rightBullet)
+		
+		audioPlayer._play_laser_sfx()
 
 # To Control the players input and move the space ship accordingly.
 func MovementController(delta):
