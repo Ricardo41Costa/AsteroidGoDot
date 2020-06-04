@@ -13,11 +13,21 @@ func _ready():
 
 func _set_Level_Label_Text(level):
 	
-	var levelLabel = $LevelLabel
+	$LevelLabel.text = "Level " + String(level)
+
+func _change_next_level_msg(level):
 	
-	levelLabel.text = "Level " + String(level)
+	$CenterContainer/MsgLabel.text = "Level " + String(level)
+
+func _change_pause_msg():
+	
+	$CenterContainer/MsgLabel.text = "PAUSE"
 
 func _set_Reduce_Live_Counter(currentLives):
 	
 	var extraLiveTexture = extraLivesArray[currentLives]
 	extraLiveTexture.queue_free()
+
+func _turn_next_level_msg_visible(visible):
+	
+	$CenterContainer/MsgLabel.visible = visible

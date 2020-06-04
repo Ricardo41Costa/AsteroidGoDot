@@ -13,6 +13,25 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MsgLabel" type="Label" parent="CenterContainer"]
+visible = false
+margin_left = 337.0
+margin_top = 233.0
+margin_right = 383.0
+margin_bottom = 247.0
+text = "Level 2"
+align = 1
+valign = 1
+
 [node name="ExtraLiveTexture1" type="TextureRect" parent="."]
 margin_left = 0.25
 margin_top = 16.0
@@ -20,6 +39,9 @@ margin_right = 64.25
 margin_bottom = 80.0
 rect_scale = Vector2( 0.6, 0.5 )
 texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="ExtraLiveTexture2" type="TextureRect" parent="."]
 margin_left = 36.125
