@@ -23,10 +23,12 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	
+	#var isRunning = $"/root/Main".isGameRunning()
+	
+	#if isRunning:
 	MovementController(delta)
 	BorderController()
 	CannonController()
-	VulnerableController()
 	VulnerableController()
 
 func StartSpaceShip():
@@ -154,3 +156,4 @@ func _die():
 func _timer_callback():
 	isVulnerable = true
 	timerVulnerable.stop()
+	call_deferred("queue_free", timerVulnerable)

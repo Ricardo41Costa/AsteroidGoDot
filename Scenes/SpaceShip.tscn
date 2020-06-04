@@ -69,7 +69,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 7, 2, 8 ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=5]
 resource_name = "TurnLeft"
 length = 0.7
 tracks/0/type = "value"
@@ -79,14 +79,13 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 10 ]
+"values": [ 10, 10 ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "TurnRight"
+[sub_resource type="Animation" id=6]
 length = 0.7
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -101,51 +100,51 @@ tracks/0/keys = {
 "values": [ 5 ]
 }
 
-[sub_resource type="AnimationNodeAnimation" id=6]
+[sub_resource type="AnimationNodeAnimation" id=7]
 animation = "Idle"
 
-[sub_resource type="AnimationNodeAnimation" id=7]
+[sub_resource type="AnimationNodeAnimation" id=8]
 animation = "SpeedStable"
 
-[sub_resource type="AnimationNodeAnimation" id=13]
+[sub_resource type="AnimationNodeAnimation" id=9]
 animation = "TurnLeft"
 
-[sub_resource type="AnimationNodeAnimation" id=14]
+[sub_resource type="AnimationNodeAnimation" id=10]
 animation = "TurnRight"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=11]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=12]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=13]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=14]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=15]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=16]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=17]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=18]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=19]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=20]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=8]
+[sub_resource type="AnimationNodeStateMachine" id=21]
+states/Idle/node = SubResource( 7 )
+states/Idle/position = Vector2( 569.25, 167.775 )
+states/SpeedStable/node = SubResource( 8 )
+states/SpeedStable/position = Vector2( 574.5, 687.21 )
+states/TurnLeft/node = SubResource( 9 )
+states/TurnLeft/position = Vector2( 339.23, 391.791 )
+states/TurnRight/node = SubResource( 10 )
+states/TurnRight/position = Vector2( 803, 392.695 )
+transitions = [ "TurnRight", "TurnLeft", SubResource( 11 ), "TurnLeft", "TurnRight", SubResource( 12 ), "Idle", "SpeedStable", SubResource( 13 ), "SpeedStable", "Idle", SubResource( 14 ), "SpeedStable", "TurnLeft", SubResource( 15 ), "TurnLeft", "SpeedStable", SubResource( 16 ), "TurnRight", "SpeedStable", SubResource( 17 ), "SpeedStable", "TurnRight", SubResource( 18 ), "TurnRight", "Idle", SubResource( 19 ), "TurnLeft", "Idle", SubResource( 20 ) ]
+graph_offset = Vector2( -33.9874, 330.363 )
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=9]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=21]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=22]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=23]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=24]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=25]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=26]
-
-[sub_resource type="AnimationNodeStateMachine" id=10]
-states/Idle/node = SubResource( 6 )
-states/Idle/position = Vector2( 353.75, 80.2753 )
-states/SpeedStable/node = SubResource( 7 )
-states/SpeedStable/position = Vector2( 351.5, 393.71 )
-states/TurnLeft/node = SubResource( 13 )
-states/TurnLeft/position = Vector2( 802.23, 80.9815 )
-states/TurnRight/node = SubResource( 14 )
-states/TurnRight/position = Vector2( 802.5, 393.6 )
-transitions = [ "TurnRight", "TurnLeft", SubResource( 19 ), "TurnLeft", "TurnRight", SubResource( 20 ), "Idle", "SpeedStable", SubResource( 8 ), "SpeedStable", "Idle", SubResource( 9 ), "SpeedStable", "TurnLeft", SubResource( 21 ), "TurnLeft", "SpeedStable", SubResource( 22 ), "TurnRight", "SpeedStable", SubResource( 23 ), "SpeedStable", "TurnRight", SubResource( 24 ), "TurnRight", "Idle", SubResource( 25 ), "TurnLeft", "Idle", SubResource( 26 ) ]
-graph_offset = Vector2( 0, 193.23 )
-
-[sub_resource type="AnimationNodeStateMachinePlayback" id=11]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=22]
 
 [node name="SpaceShip" type="KinematicBody2D"]
 position = Vector2( 0.125, 0 )
@@ -158,20 +157,21 @@ bulletScene = ExtResource( 3 )
 texture = ExtResource( 1 )
 vframes = 2
 hframes = 6
+frame = 10
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Idle = SubResource( 1 )
 anims/SpeedDown = SubResource( 2 )
 anims/SpeedStable = SubResource( 3 )
 anims/SpeedUp = SubResource( 4 )
-anims/TurnLeft = SubResource( 12 )
-anims/TurnRight = SubResource( 5 )
+anims/TurnLeft = SubResource( 5 )
+anims/TurnRight = SubResource( 6 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 10 )
+tree_root = SubResource( 21 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
-parameters/playback = SubResource( 11 )
+parameters/playback = SubResource( 22 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 position = Vector2( 0.6875, -4.875 )

@@ -5,31 +5,37 @@ var level
 var numberLives
 var screenSize
 var nextLevelTimer
-var running
+var isLevelWaiting
+var isRunning
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
 	screenSize = get_viewport().size
 	level = 0
+	isRunning = true
 	StartTimer()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	
 	checkNumberOfComets()
+	PauseController()
 
 func PauseController():
 	
 	if Input.is_action_pressed("ui_pause"):
 		
-		pass
+		if isRunning:
+			isRunning = false
+		else:
+			isRunning = true
 
 func checkNumberOfComets():
 	
 	var cometCount = get_tree().get_nodes_in_group("Comet").size();
 	
-	if (cometCount == 0 && running):
+	if (cometCount == 0 && isLevelWaiting):
 		
 		StartTimer()
 
@@ -64,7 +70,7 @@ func SpawnComet(numberComets):
 
 func StartTimer():
 	
-	running = false
+	isLevelWaiting = false
 	
 	var nextLevel = level + 1
 	
@@ -79,10 +85,13 @@ func StartTimer():
 func _on_NextLevelTimer_timeout():
 	print("help me jesus")
 	
-	running = true
+	isLevelWaiting = true
 	
 	nextLevelTimer.stop()
 	call_deferred("queue_free", nextLevelTimer)
 	
 	$CanvasLayer/UI._turn_next_level_msg_visible(false)
 	NextLevel()
+
+func isGameRunning():
+	return isRunning
