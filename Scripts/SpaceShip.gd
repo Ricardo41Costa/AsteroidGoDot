@@ -4,7 +4,7 @@ export var speed = 200 #player speed
 export (PackedScene) var bulletScene
 export(NodePath) var parent_path
 
-onready var audioPlayer = get_node("/root/Main/AudioPlayer")
+var audioPlayer
 
 var mainScenePath
 
@@ -35,6 +35,7 @@ func StartSpaceShip():
 	var uiScenePath = $"/root/Main/CanvasLayer/UI"
 	var animationPath = $AnimationTree.get("parameters/playback")
 	mainScenePath = $"/root/Main"
+	audioPlayer = $"/root/Main/AudioPlayer"
 	
 	uiScene = uiScenePath
 	
